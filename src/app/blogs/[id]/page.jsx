@@ -1,13 +1,10 @@
 'use client'
+import { useParams } from 'next/navigation';
+import { blogs } from '@/app/data/blogs';
 
-import { useRouter } from 'next/navigation';
-import React from 'react';
-
-const BlogPage = () => {
-  // Sample blog data - in a real app, this would come from an API or database
-
-  const router = useRouter();
-  const blogs = [
+const BlogDetails = () => {
+  const { id } = useParams();
+    const blogs = [
     {
       id: 1,
       title: "The Future of Web Development",
@@ -117,51 +114,59 @@ const BlogPage = () => {
     }
   ];
 
-  const handleReadMore = (blogId) => {
-    
-    router.push(`/blogs/${blogId}`)
-  };
+  console.log(id)
+  
+  const blog = blogs.find(blog => blog.id === parseInt(id));
+    console.log('id from blog details',parseInt(id));
+    console.log(blog,'from details')
+
+  if (!blog) {
+    return <div className="text-center py-10">Blog not found</div>;
+  }
 
   return (
-    <div className="container mx-auto px-6 py-10">
-      <h2 className="text-4xl font-bold text-center text-gray-100 mb-12">Our Blog Posts</h2>
-      
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
-        {blogs.map((blog) => (
-          <div 
-            key={blog.id} 
-            className="bg-slate-900/80 rounded-lg shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300"
-          >
-            <img 
-              src={blog.image} 
-              alt={blog.title}
-              className="w-full h-64 object-cover transition-transform duration-500 hover:scale-105"
-            />
-            <div className="p-6 space-y-4">
-              <div className="text-sm text-blue-600 font-semibold mb-1">
-                {blog.category}
-              </div>
-              <h2 className="text-2xl font-bold text-gray-800 mb-2">
-                {blog.title}
-              </h2>
-              <p className="text-gray-700">
-                {blog.content.slice(0, 100)}...
-              </p>
-              <div className="flex justify-between items-center text-sm text-gray-500">
-                <span>{blog.date}</span>
-                <button 
-                  className="px-5 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition duration-300"
-                  onClick={() => handleReadMore(blog.id)}
-                >
-                  Read More
-                </button>
-              </div>
-            </div>
+    <div className="container mx-auto px-4 py-8">
+      <div className="max-w-4xl mx-auto">
+        <img 
+          src={blog.image} 
+          alt={blog.title} 
+          className="w-full h-96 object-cover rounded-lg mb-8"
+        />
+        
+        <div className="space-y-4">
+          <div className="flex items-center justify-between">
+            <span className="text-blue-600 font-semibold">{blog.category}</span>
+            <span className="text-gray-500">{blog.date}</span>
           </div>
-        ))}
+          
+          <h1 className="text-4xl font-bold text-gray-100">{blog.title}</h1>
+          
+          <div className="flex items-center space-x-4 text-gray-500">
+            <span>By {blog.author}</span>
+            <span>•</span>
+            <span>{blog.views} views</span>
+            <span>•</span>
+            <span>{blog.likes} likes</span>
+          </div>
+          
+          <p className="text-gray-300 leading-relaxed">{blog.content}</p>
+          
+          <div className="mt-8">
+            <h2 className="text-2xl font-bold text-gray-100 mb-4">Comments ({blog.comments.length})</h2>
+            {blog.comments.map((comment, index) => (
+              <div key={index} className="bg-slate-900/80 p-4 rounded-lg mb-4">
+                <div className="flex justify-between">
+                  <span className="font-semibold text-gray-100">{comment.user}</span>
+                  <span className="text-gray-500">{comment.date}</span>
+                </div>
+                <p className="text-gray-300 mt-2">{comment.comment}</p>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );
 };
 
-export default BlogPage;
+export default BlogDetails; 
