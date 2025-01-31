@@ -141,13 +141,13 @@ const BlogPage = () => {
               <div className="text-sm text-blue-600 font-semibold mb-1">
                 {blog.category}
               </div>
-              <h2 className="text-2xl font-bold text-gray-800 mb-2">
+              <h2 className="text-2xl font-bold text-gray-200 mb-2">
                 {blog.title}
               </h2>
-              <p className="text-gray-700">
+              <p className="text-gray-400">
                 {blog.content.slice(0, 100)}...
               </p>
-              <div className="flex justify-between items-center text-sm text-gray-500">
+              <div className="flex justify-between items-center text-sm text-gray-400">
                 <span>{blog.date}</span>
                 <button 
                   className="px-5 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition duration-300"

@@ -1,6 +1,5 @@
 'use client'
 import { useParams } from 'next/navigation';
-import { blogs } from '@/app/data/blogs';
 
 const BlogDetails = () => {
   const { id } = useParams();
