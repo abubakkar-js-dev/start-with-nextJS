@@ -28,10 +28,15 @@ const Navbar = () => {
               </Link>
             </li>
             <li>
+              <Link href="/posts" className='cursor-pointer py-2 px-8 hover:bg-slate-900/30 rounded-md transition block'>
+                Posts
+              </Link>
+            </li>
+            {/* <li>
               <Link href="/aboutUs" className='cursor-pointer py-2 px-8 hover:bg-slate-900/30 rounded-md transition block'>
                 About Us
               </Link>
-            </li>
+            </li> */}
             <li>
               <Link href="/contactUs" className='cursor-pointer py-2 px-8 hover:bg-slate-900/30 rounded-md transition block'>
                 Contact Us
